@@ -1,0 +1,17 @@
+[package]
+name = "ecuder_statistics"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.41.0", features = ["full"] }
+axum = "0.7.5"
+tokio-postgres = { version = "0.7.12" , features = ["with-chrono-0_4", "with-uuid-1"] }
+postgres-types = { version = "0.2.8", features = ["derive"]}
+serde_postgres = "0.2.0"
+serde = { version = "1.0.214", features = ["derive"] }
+chrono = { version = "0.4.38", features = ["serde"] }
+serde_json = "1.0.132"
+reqwest = { version = "0.12.9", features = ["json"] }
+uuid = { version = "1.11.0" } 
+thiserror = "2.0.9"
