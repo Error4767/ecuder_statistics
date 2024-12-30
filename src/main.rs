@@ -3,6 +3,9 @@ use std::sync::Arc;
 
 use tokio::sync::Mutex;
 
+use tower::ServiceBuilder;
+use tower_http::cors::{Any, CorsLayer};
+
 struct DBInfo {
     client: tokio_postgres::Client,
 }
@@ -28,7 +31,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>>  {
         client,
     }));
 
-    let app = Router::new().route("/add_listen_logs", post(add_listen_logs)).with_state(db_info);
+    let app = Router::new()
+        .route("/add_listen_logs", post(add_listen_logs))
+        .with_state(db_info)
+        .layer(
+            ServiceBuilder::new().layer(
+                CorsLayer::new()
+                .allow_headers(Any)
+                .allow_methods(Any)
+                .allow_origin(Any)
+            )
+        );
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:4100").await.unwrap();
     axum::serve(listener, app).await.unwrap();

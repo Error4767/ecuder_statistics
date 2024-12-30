@@ -15,3 +15,5 @@ serde_json = "1.0.132"
 reqwest = { version = "0.12.9", features = ["json"] }
 uuid = { version = "1.11.0" } 
 thiserror = "2.0.9"
+tower = "0.4.13"
+tower-http = { version = "0.5.2", features = ["cors"]}
